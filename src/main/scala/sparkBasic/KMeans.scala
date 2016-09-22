@@ -25,8 +25,7 @@ object KMeans {
 
   def main(args: Array[String]) {
 
-    val lines=spark.read.text("d://123.txt").rdd
-    lines.map(parseVector _).cache()
+    val lines=spark.read.textFile("d://123.txt").rdd
     val data=lines.map(parseVector _).cache()
     val k=2
     val convergeDist =0.1
