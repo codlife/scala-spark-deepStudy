@@ -1,5 +1,9 @@
 package akkas.wordCount
 
+import akka.actor.{Actor, Props}
+import akka.actor.ActorRef
+
+
 /**
   * Created by wjf on 16-10-2.
   */
@@ -27,9 +31,9 @@ class WordCounterActor(fileName: String) extends Actor {
   private var result =0
   private var fileSender: Option[ActorRef]  = None
   def receive = {
-    case StartProcessFileMsg() => {
+    case StartProcessFileMsg() =>
       if (running) {
-       println("log")
+        println("log")
       } else {
         running = true
         // save reference to process invoker
@@ -41,17 +45,18 @@ class WordCounterActor(fileName: String) extends Actor {
             totalLines += 1
         }
       }
-    }
-    case StringProcessedMsg(words) => {
+
+    case StringProcessedMsg(words) =>
       result += words
       linesProcessed += 1
       if (linesProcessed == totalLines) {
         // provide result to process invoker
-        fileSender.map(_ ! result)
+        fileSender.foreach(_ ! result)
       }
-    }
+
+    case _ => println("message not recognized")
+
   }
-  case _ => println("message not recognized")
 
 
 }
