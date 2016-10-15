@@ -1,0 +1,17 @@
+1:DataSet
+    provide the benefits(strong type and the ability to use powerful lambda functions) of rdd and spark sql's optimized execution engine
+2:DataFrame
+    DataFrame is a an alias of DataSet[Row]
+3:DataSets
+    are similar to RDD, however, instead of using java serialization or Kryo, they use a specialied Encoder to serialize the objects
+    for processing and transforming over the network. While both encoders and standard serialization for turning an object into bytes,
+    encoder are code generated dynamically and use a format that allows Spark to perform many operations like filtering, sorting and hasing
+    without deserializing the bytes back into an object.
+4:cass class encoder
+    // note: case class in scala 2.10 can support only up to 22 fields, to work around this limit,
+    // you can use custom classed that implement the Product trait
+    case class Person(name: String, age: Long)
+5:JSON DataSets
+    Note that the file that is offered as a json file is not a typical JSON file, Each line must contain a separate, self-contained valid JSON
+    object. As a consequence, a regular multi-line JSON file will most often fail.
+    // todo maybe we can do some thing about this
