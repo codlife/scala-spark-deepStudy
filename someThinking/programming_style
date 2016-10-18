@@ -1,0 +1,34 @@
+1：code细节，比如下面的两个block,第二个比第一个效率高
+```
+var a = 5
+    var start = System.nanoTime()
+    for(i <- 0 until 100000000) {
+      a match {
+        case 1 =>
+        case 2 =>
+        case 3 =>
+        case 4 =>
+        case 5 =>
+      }
+    }
+    var end = System.nanoTime()
+    println("time is: " + (end - start))
+    start = System.nanoTime()
+    a = 1
+    for(i <- 0 until 100000000) {
+      a match {
+        case 1 =>
+        case 2 =>
+        case 3 =>
+        case 4 =>
+        case 5 =>
+      }
+    }
+    end = System.nanoTime()
+    println("time is: " + (end - start))
+```
+result:
+time is: 6713244
+16/10/18 18:35:18 INFO SparkContext: Invoking stop() from shutdown hook
+16/10/18 18:35:18 INFO ServerConnector: Stopped ServerConnector@48793bef{HTTP/1.1}{0.0.0.0:4040}
+time is: 5084393
